@@ -2,10 +2,11 @@
   "name": "test_task-friend_lee-",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "node server.ts",
-    "build": "next build",
-    "start": "NODE_ENV=production node server.js",
+    "dev": "node --loader ts-node/esm server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
     "lint": "next lint"
   },
   "dependencies": {
@@ -16,7 +17,6 @@
     "react-dom": "^18",
     "socket.io": "^4.7.5",
     "socket.io-client": "^4.7.5",
-    "ts-node": "^10.9.2",
     "utf-8-validate": "^6.0.4",
     "ws": "^8.18.0"
   },
@@ -28,6 +28,8 @@
     "@types/socket.io": "^3.0.2",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.5.4"
   }
 }

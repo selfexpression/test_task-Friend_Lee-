@@ -1,19 +1,19 @@
-const express = require("express");
-const next = require("next");
-const http = require("http");
-const socketIO = require("socket.io");
+import express, { Request, Response } from "express";
+import next from "next";
+import http from "http";
+import { Server as SocketIOServer, Socket } from "socket.io";
 
 const dev = process.env.NODE_ENV !== "production";
 const hostname = "localhost";
-const port = process.env.PORT || 3000;
+const port = Number(process.env.PORT) || 3000;
 
 const app = next({ dev, hostname, port });
 const handler = app.getRequestHandler();
 
-const setupSocketIO = (server) => {
-  const io = socketIO(server);
+const setupSocketIO = (server: http.Server) => {
+  const io = new SocketIOServer(server);
 
-  io.on("connection", (socket) => {
+  io.on("connection", (socket: Socket) => {
     console.log("Client connected");
 
     socket.on("key", (key: string) => {
@@ -33,7 +33,7 @@ const setupExpressAndNext = () => {
   const server = express();
   const httpServer = http.createServer(server);
 
-  server.all("*", (req) => {
+  server.all("*", (req: Request, res: Response) => {
     return handler(req, res);
   });
 
